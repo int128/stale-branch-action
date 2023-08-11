@@ -1,10 +1,11 @@
-name: typescript-action
-description: Template of TypeScript Action
+name: stale-branch-action
+description: Clean up stale branches in GitHub Actions
 
 inputs:
-  name:
-    description: example input
+  token:
+    description: GitHub token
     required: true
+    default: ${{ github.token }}
 
 runs:
   using: 'node16'

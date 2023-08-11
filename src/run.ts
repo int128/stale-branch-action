@@ -1,10 +1,17 @@
 import * as core from '@actions/core'
+import * as github from '@actions/github'
+import { paginateRefs } from './queries/refs'
 
 type Inputs = {
-  name: string
+  token: string
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await
 export const run = async (inputs: Inputs): Promise<void> => {
-  core.info(`my name is ${inputs.name}`)
+  const octokit = github.getOctokit(inputs.token)
+  const refs = await paginateRefs(octokit, {
+    owner: github.context.repo.owner,
+    name: github.context.repo.repo,
+    refPrefix: 'refs/heads/',
+  })
+  core.info(JSON.stringify(refs, undefined, 2))
 }
