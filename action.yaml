@@ -1,10 +1,21 @@
-name: typescript-action
-description: Template of TypeScript Action
+name: stale-branch-action
+description: Clean up stale branches in GitHub Actions
 
 inputs:
-  name:
-    description: example input
+  expiration-days:
+    description: Expiration in days
     required: true
+  ref-prefix:
+    description: Prefix of refs
+    required: false
+    default: refs/heads/
+  dry-run:
+    description: Set true if dry-run
+    required: false
+  token:
+    description: GitHub token
+    required: true
+    default: ${{ github.token }}
 
 runs:
   using: 'node16'

@@ -3,8 +3,11 @@ import { run } from './run'
 
 const main = async (): Promise<void> => {
   await run({
-    name: core.getInput('name', { required: true }),
+    expirationDays: Number.parseInt(core.getInput('expiration-days', { required: true })),
+    refPrefix: core.getInput('ref-prefix', { required: true }),
+    dryRun: core.getBooleanInput('dry-run'),
+    token: core.getInput('token', { required: true }),
   })
 }
 
-main().catch((e) => core.setFailed(e instanceof Error ? e : String(e)))
+main().catch(console.error).catch(core.setFailed)
