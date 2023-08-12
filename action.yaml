@@ -2,6 +2,12 @@ name: stale-branch-action
 description: Clean up stale branches in GitHub Actions
 
 inputs:
+  expiration-days:
+    description: Expiration in days
+    required: true
+  ref-prefix:
+    description: Prefix of refs, default to refs/heads/
+    required: false
   token:
     description: GitHub token
     required: true
