@@ -9,6 +9,9 @@ inputs:
     description: Prefix of refs
     required: false
     default: refs/heads/
+  dry-run:
+    description: Set true if dry-run
+    required: false
   token:
     description: GitHub token
     required: true

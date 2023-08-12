@@ -7,6 +7,7 @@ import { deleteBranches } from './git'
 type Inputs = {
   refPrefix: string
   expirationDays: number
+  dryRun: boolean
   token: string
 }
 
@@ -23,5 +24,8 @@ export const run = async (inputs: Inputs): Promise<void> => {
   const staleBranches = getStaleBranches(refs, expiration)
   core.info(`Stale branches:\n${staleBranches.join('\n')}`)
 
+  if (inputs.dryRun) {
+    return
+  }
   await deleteBranches(staleBranches)
 }
