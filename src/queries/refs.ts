@@ -20,6 +20,7 @@ const query = /* GraphQL */ `
             totalCount
           }
           target {
+            __typename
             ... on Commit {
               committedDate
             }
@@ -49,6 +50,6 @@ export const paginateRefs = async (o: Octokit, v: RefsQueryVariables): Promise<R
   assert(next.repository != null)
   assert(next.repository.refs != null)
   assert(next.repository.refs.nodes != null)
-  next.repository.refs.nodes.push(...refs.repository.refs.nodes)
-  return next
+  refs.repository.refs.nodes.push(...next.repository.refs.nodes)
+  return refs
 }

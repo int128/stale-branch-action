@@ -3,6 +3,8 @@ import { run } from './run'
 
 const main = async (): Promise<void> => {
   await run({
+    expirationDays: Number.parseInt(core.getInput('expiration-days', { required: true })),
+    refPrefix: core.getInput('ref-prefix'),
     token: core.getInput('token', { required: true }),
   })
 }
