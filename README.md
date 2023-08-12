@@ -4,6 +4,13 @@ This action deletes stale branches.
 
 ## Getting Started
 
+It deletes a branch if the following conditions are satisfied:
+
+- The committed date is earlier than the expiration
+- The branch does not have open pull request(s)
+
+To delete branches older than 30 days,
+
 ```yaml
 jobs:
   delete:
@@ -11,9 +18,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
-      - uses: int128/release-stale-branch-action@v1
+      - uses: int128/stale-branch-action@v1
         with:
-          expiration-days: 7
+          expiration-days: 30
 ```
 
 ## Specification
