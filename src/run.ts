@@ -14,7 +14,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
   const refs = await paginateRefs(octokit, {
     owner: github.context.repo.owner,
     name: github.context.repo.repo,
-    refPrefix: inputs.refPrefix ?? 'refs/heads/',
+    refPrefix: inputs.refPrefix,
   })
   core.info(JSON.stringify(refs, undefined, 2))
 

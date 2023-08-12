@@ -6,8 +6,9 @@ inputs:
     description: Expiration in days
     required: true
   ref-prefix:
-    description: Prefix of refs, default to refs/heads/
+    description: Prefix of refs
     required: false
+    default: refs/heads/
   token:
     description: GitHub token
     required: true
