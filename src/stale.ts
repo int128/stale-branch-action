@@ -1,7 +1,7 @@
 import assert from 'assert'
-import { RefsQuery } from './generated/graphql'
+import { ListRefsQuery } from './generated/graphql'
 
-export const getStaleBranches = (refs: RefsQuery, expiration: Date): string[] => {
+export const getStaleBranches = (refs: ListRefsQuery, expiration: Date): string[] => {
   assert(refs.repository != null)
   assert(refs.repository.refs != null)
   assert(refs.repository.refs.nodes != null)
