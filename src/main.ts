@@ -10,4 +10,7 @@ const main = async (): Promise<void> => {
   })
 }
 
-main().catch(console.error).catch(core.setFailed)
+main().catch((e: Error) => {
+  console.error(e)
+  core.setFailed(e)
+})
