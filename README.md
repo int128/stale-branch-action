@@ -31,7 +31,7 @@ jobs:
 | ----------------- | ------------- | --------------------- |
 | `expiration-days` | (required)    | Expiration in days    |
 | `ref-prefix`      | `refs/heads/` | Prefix of refs        |
-| `dry-run`         | -             | Set `true` if dry-run |
+| `dry-run`         | `false`       | Set `true` if dry-run |
 
 ### Outputs
 

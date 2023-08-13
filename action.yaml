@@ -12,6 +12,7 @@ inputs:
   dry-run:
     description: Set true if dry-run
     required: false
+    default: 'false'
   token:
     description: GitHub token
     required: true
