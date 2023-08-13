@@ -18,6 +18,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
     name: github.context.repo.repo,
     refPrefix: inputs.refPrefix,
   })
+  core.info(`Found ${refs.repository?.refs?.totalCount} branches`)
 
   const expiration = new Date(Date.now() - inputs.expirationDays * 24 * 60 * 60 * 1000)
   core.info(`Expiration at ${expiration.toISOString()}`)
