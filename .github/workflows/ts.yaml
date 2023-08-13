@@ -38,7 +38,7 @@ jobs:
         uses: ./
         with:
           expiration-days: 1
-          refs-prefix: refs/heads/e2e-test/
+          ref-prefix: refs/heads/e2e-test/
           dry-run: true
       - run: test '${{ steps.stale-branch-action.outputs.stale-branches }}'
 
