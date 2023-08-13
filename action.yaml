@@ -18,6 +18,10 @@ inputs:
     required: true
     default: ${{ github.token }}
 
+outputs:
+  stale-branches:
+    description: Stale branch names (multiline string)
+
 runs:
   using: 'node16'
   main: 'dist/index.js'
