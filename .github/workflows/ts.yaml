@@ -33,10 +33,14 @@ jobs:
       - run: yarn build
       - run: yarn package
 
-      - name: e2e-test
+      - name: 'e2e-test: int128/stale-branch-action'
+        id: stale-branch-action
         uses: ./
         with:
-          expiration-days: 3
+          expiration-days: 1
+          ref-prefix: refs/heads/e2e-test/
+          dry-run: true
+      - run: test '${{ steps.stale-branch-action.outputs.stale-branches }}'
 
   generate:
     runs-on: ubuntu-latest

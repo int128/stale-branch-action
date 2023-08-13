@@ -24,6 +24,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
   core.info(`Expiration at ${expiration.toISOString()}`)
   const staleBranches = getStaleBranches(refs, expiration)
   core.info(`Stale branches:\n${staleBranches.join('\n')}`)
+  core.setOutput('stale-branches', staleBranches.join('\n'))
 
   if (staleBranches.length === 0) {
     core.info(`No stale branch`)
