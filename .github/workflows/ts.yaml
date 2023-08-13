@@ -33,10 +33,15 @@ jobs:
       - run: yarn build
       - run: yarn package
 
-      - name: e2e-test
+      # https://github.com/int128/stale-branch-action/commit/7562db998d2c981c53391b0eb6c4339ef7fc8f85
+      - run: git push origin '7562db998d2c981c53391b0eb6c4339ef7fc8f85:e2e-test-fixture-${{ github.run_id }}'
+
+      - name: 'e2e-test: int128/stale-branch-action'
+        id: stale-branch-action
         uses: ./
         with:
-          expiration-days: 3
+          expiration-days: 1
+      - run: test '${{ steps.stale-branch-action.outputs.stale-branches }}'
 
   generate:
     runs-on: ubuntu-latest
