@@ -51,6 +51,6 @@ jobs:
 
 ### Outputs
 
-| Name             | Description                           |
-| ---------------- | ------------------------------------- |
-| `stale-branches` | Stale branch names (multiline string) |
+| Name         | Description                        |
+| ------------ | ---------------------------------- |
+| `stale-refs` | Stale ref names (multiline string) |

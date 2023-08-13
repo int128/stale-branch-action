@@ -1,8 +1,8 @@
-import { getStaleBranches } from '../src/stale'
+import { getStaleRefs } from '../src/stale'
 
 describe('getStaleBranches', () => {
   test('empty', () => {
-    const staleBranches = getStaleBranches(
+    const staleBranches = getStaleRefs(
       {
         repository: {
           refs: {
@@ -12,13 +12,14 @@ describe('getStaleBranches', () => {
           },
         },
       },
+      'refs/heads/',
       new Date(),
     )
     expect(staleBranches).toStrictEqual([])
   })
 
   test('recent branch', () => {
-    const staleBranches = getStaleBranches(
+    const staleBranches = getStaleRefs(
       {
         repository: {
           refs: {
@@ -34,13 +35,14 @@ describe('getStaleBranches', () => {
           },
         },
       },
+      'refs/heads/',
       new Date('2023-04-01T00:00:00Z'),
     )
     expect(staleBranches).toStrictEqual([])
   })
 
   test('outdated branch but pull request is associated', () => {
-    const staleBranches = getStaleBranches(
+    const staleBranches = getStaleRefs(
       {
         repository: {
           refs: {
@@ -56,13 +58,14 @@ describe('getStaleBranches', () => {
           },
         },
       },
+      'refs/heads/',
       new Date('2023-04-10T00:00:00Z'),
     )
     expect(staleBranches).toStrictEqual([])
   })
 
   test('outdated branch', () => {
-    const staleBranches = getStaleBranches(
+    const staleBranches = getStaleRefs(
       {
         repository: {
           refs: {
@@ -78,8 +81,9 @@ describe('getStaleBranches', () => {
           },
         },
       },
+      'refs/heads/',
       new Date('2023-04-10T00:00:00Z'),
     )
-    expect(staleBranches).toStrictEqual(['branch-1'])
+    expect(staleBranches).toStrictEqual(['refs/heads/branch-1'])
   })
 })

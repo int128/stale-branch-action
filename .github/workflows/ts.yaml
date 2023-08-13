@@ -40,7 +40,7 @@ jobs:
           expiration-days: 1
           ref-prefix: refs/heads/e2e-test/
           dry-run: true
-      - run: test '${{ steps.stale-branch-action.outputs.stale-branches }}'
+      - run: test '${{ steps.stale-branch-action.outputs.stale-refs }}' == 'refs/heads/e2e-test/fixture'
 
   generate:
     runs-on: ubuntu-latest
