@@ -36,7 +36,7 @@ jobs:
       - run: yarn package
 
       # https://github.com/int128/stale-branch-action/commit/7562db998d2c981c53391b0eb6c4339ef7fc8f85
-      - run: git push origin '7562db998d2c981c53391b0eb6c4339ef7fc8f85:e2e-test-fixture-${{ github.run_id }}'
+      - run: git push origin '7562db998d2c981c53391b0eb6c4339ef7fc8f85:refs/heads/e2e-test-fixture-${{ github.run_id }}'
 
       - name: 'e2e-test: int128/stale-branch-action'
         id: stale-branch-action
