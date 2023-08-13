@@ -22,8 +22,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # v3.7.0
@@ -35,14 +33,13 @@ jobs:
       - run: yarn build
       - run: yarn package
 
-      # https://github.com/int128/stale-branch-action/commit/7562db998d2c981c53391b0eb6c4339ef7fc8f85
-      - run: git push origin '7562db998d2c981c53391b0eb6c4339ef7fc8f85:refs/heads/e2e-test-fixture-${{ github.run_id }}'
-
       - name: 'e2e-test: int128/stale-branch-action'
         id: stale-branch-action
         uses: ./
         with:
           expiration-days: 1
+          refs-prefix: refs/heads/e2e-test/
+          dry-run: true
       - run: test '${{ steps.stale-branch-action.outputs.stale-branches }}'
 
   generate:
