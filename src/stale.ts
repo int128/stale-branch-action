@@ -17,7 +17,7 @@ export const getStaleBranches = (refs: ListRefsQuery, expiration: Date): string[
     assert(node.target.__typename === 'Commit')
     const committedDate = new Date(node.target.committedDate)
     if (committedDate.getTime() > expiration.getTime()) {
-      continue // branch is enough new
+      continue // branch is not outdated
     }
 
     staleRefNames.push(node.name)

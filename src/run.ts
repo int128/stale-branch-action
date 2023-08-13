@@ -25,6 +25,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
   core.info(`Stale branches:\n${staleBranches.join('\n')}`)
 
   if (inputs.dryRun) {
+    core.info(`Exiting due to dry-run`)
     return
   }
   await deleteBranches(staleBranches)
