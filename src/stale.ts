@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { ListRefsQuery } from './generated/graphql'
 
-export const getStaleBranches = (refs: ListRefsQuery, expiration: Date): string[] => {
+export const getStaleRefs = (refs: ListRefsQuery, prefix: string, expiration: Date): string[] => {
   assert(refs.repository != null)
   assert(refs.repository.refs != null)
   assert(refs.repository.refs.nodes != null)
@@ -20,7 +20,7 @@ export const getStaleBranches = (refs: ListRefsQuery, expiration: Date): string[
       continue // branch is not outdated
     }
 
-    staleRefNames.push(node.name)
+    staleRefNames.push(`${prefix}${node.name}`)
   }
   return staleRefNames
 }
