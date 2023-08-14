@@ -23,6 +23,11 @@ jobs:
           expiration-days: 30
 ```
 
+This action deletes the stale branches using `git push origin --delete` command.
+`actions/checkout` is required to set up the git config.
+
+### Filter branches
+
 You can filter the branches by prefix.
 
 ```yaml
@@ -38,16 +43,37 @@ jobs:
           ref-prefix: refs/heads/renovate/
 ```
 
+Note that `ref-prefix` must have a traling slash, due to the limitation of GitHub API.
+
+### Ignore deletion errors
+
+If a branch protection rule is set, this action cannot delete the branch.
+To ignore any error on deletion,
+
+```yaml
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: int128/stale-branch-action@v1
+        with:
+          expiration-days: 30
+          ignore-deletion-errors: true
+```
+
 ## Specification
 
 ### Inputs
 
-| Name              | Default        | Description           |
-| ----------------- | -------------- | --------------------- |
-| `expiration-days` | (required)     | Expiration in days    |
-| `ref-prefix`      | `refs/heads/`  | Prefix of refs        |
-| `dry-run`         | `false`        | Set `true` if dry-run |
-| `token`           | `github.token` | GitHub token          |
+| Name                     | Default        | Description                                     |
+| ------------------------ | -------------- | ----------------------------------------------- |
+| `expiration-days`        | (required)     | Expiration in days                              |
+| `ref-prefix`             | `refs/heads/`  | Prefix of refs                                  |
+| `dry-run`                | `false`        | Set `true` if dry-run                           |
+| `ignore-deletion-errors` | `false`        | Ignore any errors of `git push origin --delete` |
+| `token`                  | `github.token` | GitHub token                                    |
 
 ### Outputs
 
