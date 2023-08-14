@@ -17,14 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
       - uses: int128/stale-branch-action@v1
         with:
           expiration-days: 30
 ```
 
 This action deletes the stale branches using `git push origin --delete` command.
-`actions/checkout` is required to set up the git config.
 
 ### Filter branches
 
@@ -36,7 +34,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
       - uses: int128/stale-branch-action@v1
         with:
           expiration-days: 1
@@ -56,7 +53,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
       - uses: int128/stale-branch-action@v1
         with:
           expiration-days: 30
