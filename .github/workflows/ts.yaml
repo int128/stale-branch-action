@@ -35,14 +35,16 @@ jobs:
       - run: yarn build
       - run: yarn package
 
+      # https://github.com/int128/stale-branch-action/tree/ce4743423eadc59f029a71a5cb9e2a68f965386f
+      - run: git fetch origin ce4743423eadc59f029a71a5cb9e2a68f965386f
+      - run: git push origin -f 'ce4743423eadc59f029a71a5cb9e2a68f965386f:refs/heads/e2e-test/run-${{ github.run_id }}'
       - name: 'e2e-test: int128/stale-branch-action'
         id: stale-branch-action
         uses: ./
         with:
           expiration-days: 1
           ref-prefix: refs/heads/e2e-test/
-          ignore-deletion-errors: true
-      - run: test '${{ steps.stale-branch-action.outputs.stale-refs }}' == 'refs/heads/e2e-test/fixture'
+      - run: echo '${{ steps.stale-branch-action.outputs.stale-refs }}' | grep 'refs/heads/e2e-test/run-${{ github.run_id }}'
 
   generate:
     runs-on: ubuntu-latest
