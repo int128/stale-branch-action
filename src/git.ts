@@ -9,7 +9,7 @@ export const deleteRefs = async (token: string, refs: string[]): Promise<string[
   const runnerTempDir = process.env.RUNNER_TEMP || os.tmpdir()
   const cwd = await fs.mkdtemp(path.join(runnerTempDir, 'stale-branch-action-'))
 
-  core.info(`Setting up the workspace ${cwd}`)
+  core.info(`Setting up a workspace at ${cwd}`)
   await exec.exec('git', ['init'], { cwd })
   await exec.exec(
     'git',
@@ -24,6 +24,7 @@ export const deleteRefs = async (token: string, refs: string[]): Promise<string[
     { cwd },
   )
 
+  core.info(`Deleting ${refs.length} refs`)
   const errorRefs = []
   for (const ref of refs) {
     const code = await exec.exec('git', ['push', 'origin', '--delete', ref], { cwd, ignoreReturnCode: true })
