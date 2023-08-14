@@ -67,7 +67,7 @@ jobs:
 | ------------------------ | -------------- | ----------------------------------------------- |
 | `expiration-days`        | (required)     | Expiration in days                              |
 | `ref-prefix`             | `refs/heads/`  | Prefix of refs                                  |
-| `dry-run`                | `false`        | Set `true` if dry-run                           |
+| `dry-run`                | `false`        | Do not delete refs actually                     |
 | `ignore-deletion-errors` | `false`        | Ignore any errors of `git push origin --delete` |
 | `token`                  | `github.token` | GitHub token                                    |
 
