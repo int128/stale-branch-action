@@ -22,8 +22,6 @@ jobs:
           expiration-days: 30
 ```
 
-This action deletes the stale branches using `git push origin --delete` command.
-
 ### Filter branches
 
 You can filter the branches by prefix.
@@ -44,7 +42,9 @@ Note that `ref-prefix` must have a traling slash, due to the limitation of GitHu
 
 ### Ignore deletion errors
 
+This action deletes the stale branches using `git push origin --delete` command.
 If a branch protection rule is set, this action cannot delete the branch.
+
 To ignore any error on deletion,
 
 ```yaml
