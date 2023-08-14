@@ -8,6 +8,7 @@ type Inputs = {
   refPrefix: string
   expirationDays: number
   dryRun: boolean
+  ignoreDeletionError: boolean
   token: string
 }
 
@@ -34,11 +35,15 @@ export const run = async (inputs: Inputs): Promise<void> => {
     core.info(`Exiting due to dry-run`)
     return
   }
+  const errorRefs = []
   for (const ref of staleRefs) {
-    // Ignore deletion error such as branch protection rule
     const code = await exec.exec('git', ['push', 'origin', '--delete', ref], { ignoreReturnCode: true })
     if (code !== 0) {
       core.warning(`Failed to delete ${ref}`)
+      errorRefs.push(ref)
     }
+  }
+  if (errorRefs.length > 0 && !inputs.ignoreDeletionError) {
+    throw new Error(`Failed to delete refs: ${errorRefs.join(', ')}`)
   }
 }

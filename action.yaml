@@ -11,7 +11,11 @@ inputs:
     default: refs/heads/
   dry-run:
     description: Set true if dry-run
-    required: false
+    required: true
+    default: 'false'
+  ignore-deletion-errors:
+    description: Ignore any errors of git push origin --delete
+    required: true
     default: 'false'
   token:
     description: GitHub token
