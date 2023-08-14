@@ -19,18 +19,19 @@ export const run = async (inputs: Inputs): Promise<void> => {
     name: github.context.repo.repo,
     refPrefix: inputs.refPrefix,
   })
-  core.info(`Found ${refs.repository?.refs?.totalCount} branches`)
+  core.info(`Found ${refs.repository?.refs?.totalCount} refs in the repository`)
 
   const expiration = new Date(Date.now() - inputs.expirationDays * 24 * 60 * 60 * 1000)
-  core.info(`Expiration at ${expiration.toISOString()}`)
+  core.info(`Finding stale refs by expiration at ${expiration.toISOString()}`)
   const staleRefs = getStaleRefs(refs, inputs.refPrefix, expiration)
   core.setOutput('stale-refs', staleRefs.join('\n'))
   if (staleRefs.length === 0) {
     core.info(`No stale branch`)
     return
   }
-  core.info(`Stale refs:\n${staleRefs.join('\n')}`)
 
+  core.info(`Found ${staleRefs.length} stale refs:`)
+  core.info(staleRefs.join('\n'))
   if (inputs.dryRun) {
     core.info(`Exiting due to dry-run`)
     return
