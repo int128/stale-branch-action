@@ -44,13 +44,7 @@ jobs:
         with:
           expiration-days: 1
           ref-prefix: refs/heads/e2e-test/
-      - uses: actions/github-script@v6.4.1
-        env:
-          INPUT_STALE_REFS: ${{ steps.stale-branch-action.outputs.stale-refs }}
-        with:
-          script: |
-            const assert = require('assert')
-            assert(core.getMultilineInput('stale-refs').includes('refs/heads/e2e-test/run-${{ github.run_id }}'))
+      - run: echo '${{ steps.stale-branch-action.outputs.stale-refs }}' | grep 'refs/heads/e2e-test/run-${{ github.run_id }}'
 
   generate:
     runs-on: ubuntu-latest
