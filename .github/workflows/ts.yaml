@@ -22,8 +22,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # v3.7.0
@@ -41,7 +39,8 @@ jobs:
         with:
           expiration-days: 1
           ref-prefix: refs/heads/e2e-test/
-      - run: test '${{ steps.stale-branch-action.outputs.stale-refs }}'
+          ignore-deletion-errors: true
+      - run: test '${{ steps.stale-branch-action.outputs.stale-refs }}' == 'refs/heads/e2e-test/fixture'
 
   generate:
     runs-on: ubuntu-latest
