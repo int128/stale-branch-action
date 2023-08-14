@@ -35,8 +35,6 @@ jobs:
       - run: yarn build
       - run: yarn package
 
-      - run: git fetch origin --depth=1 7a9fa415b9e2d16cb3d0c817b835543d1db249a8
-      - run: git push origin '7a9fa415b9e2d16cb3d0c817b835543d1db249a8:refs/heads/e2e-test/fixture-${{ github.run_id }}'
       - name: 'e2e-test: int128/stale-branch-action'
         id: stale-branch-action
         uses: ./
