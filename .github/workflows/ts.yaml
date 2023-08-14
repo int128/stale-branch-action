@@ -35,8 +35,9 @@ jobs:
       - run: yarn build
       - run: yarn package
 
-      - run: git fetch origin 8339d8b390be7652c2beb5ae1098c3f76a71a790
-      - run: git push origin '8339d8b390be7652c2beb5ae1098c3f76a71a790:refs/heads/e2e-test/run-${{ github.run_id }}'
+      # https://github.com/int128/stale-branch-action/tree/ce4743423eadc59f029a71a5cb9e2a68f965386f
+      - run: git fetch origin ce4743423eadc59f029a71a5cb9e2a68f965386f
+      - run: git push origin -f 'ce4743423eadc59f029a71a5cb9e2a68f965386f:refs/heads/e2e-test/run-${{ github.run_id }}'
       - name: 'e2e-test: int128/stale-branch-action'
         id: stale-branch-action
         uses: ./
