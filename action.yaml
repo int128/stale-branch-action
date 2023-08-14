@@ -1,5 +1,5 @@
 name: stale-branch-action
-description: Clean up stale branches in GitHub Actions
+description: Delete stale branches
 
 inputs:
   expiration-days:
@@ -10,7 +10,7 @@ inputs:
     required: false
     default: refs/heads/
   dry-run:
-    description: Set true if dry-run
+    description: Do not delete refs actually
     required: true
     default: 'false'
   ignore-deletion-errors:
