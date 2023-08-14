@@ -50,7 +50,7 @@ jobs:
         with:
           script: |
             const assert = require('assert')
-            assert(core.getMultilineInput('stale-refs').include('refs/heads/e2e-test/run-${{ github.run_id }}'))
+            assert(core.getMultilineInput('stale-refs').includes('refs/heads/e2e-test/run-${{ github.run_id }}'))
 
   generate:
     runs-on: ubuntu-latest
