@@ -49,6 +49,7 @@ jobs:
           INPUT_STALE_REFS: ${{ steps.stale-branch-action.outputs.stale-refs }}
         with:
           script: |
+            const assert = require('assert')
             assert(core.getMultilineInput('stale-refs').include('refs/heads/e2e-test/run-${{ github.run_id }}'))
 
   generate:
