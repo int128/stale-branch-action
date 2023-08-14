@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
-import * as exec from '@actions/exec'
 import * as github from '@actions/github'
 import * as listRefs from './queries/listRefs'
 import { getStaleRefs } from './stale'
+import { deleteRefs } from './git'
 
 type Inputs = {
   refPrefix: string
@@ -35,14 +35,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
     core.info(`Exiting due to dry-run`)
     return
   }
-  const errorRefs = []
-  for (const ref of staleRefs) {
-    const code = await exec.exec('git', ['push', 'origin', '--delete', ref], { ignoreReturnCode: true })
-    if (code !== 0) {
-      core.warning(`Failed to delete ${ref}`)
-      errorRefs.push(ref)
-    }
-  }
+  const errorRefs = await deleteRefs(inputs.token, staleRefs)
   if (errorRefs.length > 0 && !inputs.ignoreDeletionError) {
     throw new Error(`Failed to delete refs: ${errorRefs.join(', ')}`)
   }
