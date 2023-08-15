@@ -35,16 +35,22 @@ jobs:
       - run: yarn build
       - run: yarn package
 
+      # Create a branch without workflows,
+      # because GITHUB_TOKEN does not have workflows permission.
       # https://github.com/int128/stale-branch-action/tree/ce4743423eadc59f029a71a5cb9e2a68f965386f
       - run: git fetch origin ce4743423eadc59f029a71a5cb9e2a68f965386f
-      - run: git push origin -f 'ce4743423eadc59f029a71a5cb9e2a68f965386f:refs/heads/e2e-test/run-${{ github.run_id }}'
-      - name: 'e2e-test: int128/stale-branch-action'
+      - run: git push origin -f 'ce4743423eadc59f029a71a5cb9e2a68f965386f:refs/heads/e2e-test-${{ github.run_id }}/fixture'
+      - name: 'Run int128/stale-branch-action'
         id: stale-branch-action
         uses: ./
         with:
           expiration-days: 1
-          ref-prefix: refs/heads/e2e-test/
-      - run: echo '${{ steps.stale-branch-action.outputs.stale-refs }}' | grep 'refs/heads/e2e-test/run-${{ github.run_id }}'
+          ref-prefix: refs/heads/e2e-test-${{ github.run_id }}/
+      - name: Test outputs.stale-refs
+        run: echo '${{ steps.stale-branch-action.outputs.stale-refs }}' | grep 'refs/heads/e2e-test-${{ github.run_id }}/fixture'
+      - if: always()
+        continue-on-error: true
+        run: git push origin --delete 'refs/heads/e2e-test-${{ github.run_id }}/fixture'
 
   generate:
     runs-on: ubuntu-latest
