@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
+import assert from 'assert'
 import { GitHub } from '@actions/github/lib/utils'
 import { ListRefsQuery, ListRefsQueryVariables } from '../generated/graphql'
-import assert from 'assert'
 
 type Octokit = InstanceType<typeof GitHub>
 

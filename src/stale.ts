@@ -14,7 +14,7 @@ export const getStaleRefs = (refs: ListRefsQuery, prefix: string, expiration: Da
     }
 
     assert(node.target != null)
-    assert(node.target.__typename === 'Commit')
+    assert.strictEqual(node.target.__typename, 'Commit')
     const committedDate = new Date(node.target.committedDate)
     if (committedDate.getTime() > expiration.getTime()) {
       continue // branch is not outdated
