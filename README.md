@@ -25,6 +25,7 @@ jobs:
 ### Filter branches
 
 You can filter the branches by prefix.
+For example,
 
 ```yaml
 jobs:
@@ -39,6 +40,24 @@ jobs:
 ```
 
 Note that `ref-prefix` must have a traling slash, due to the limitation of GitHub API.
+
+### Exclude branches
+
+You can exclude branches by glob patterns.
+For example,
+
+```yaml
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: int128/stale-branch-action@v1
+        with:
+          expiration-days: 30
+          exclude-refs: |
+            refs/heads/*/production
+```
 
 ### Ignore deletion errors
 
@@ -67,6 +86,7 @@ jobs:
 | ------------------------ | -------------- | ----------------------------------------------- |
 | `expiration-days`        | (required)     | Expiration in days                              |
 | `ref-prefix`             | `refs/heads/`  | Prefix of refs                                  |
+| `exclude-refs`           | -              | Exclude ref by pattern (multiline string)       |
 | `dry-run`                | `false`        | Do not delete refs actually                     |
 | `ignore-deletion-errors` | `false`        | Ignore any errors of `git push origin --delete` |
 | `token`                  | `github.token` | GitHub token                                    |

@@ -5,8 +5,9 @@ import { getStaleRefs } from './stale'
 import { deleteRefs } from './git'
 
 type Inputs = {
-  refPrefix: string
   expirationDays: number
+  refPrefix: string
+  excludeRefs: string[]
   dryRun: boolean
   ignoreDeletionError: boolean
   token: string
@@ -14,16 +15,19 @@ type Inputs = {
 
 export const run = async (inputs: Inputs): Promise<void> => {
   const octokit = github.getOctokit(inputs.token)
-  const refs = await listRefs.paginate(listRefs.withOctokit(octokit), {
+  const listRefsQuery = await listRefs.paginate(listRefs.withOctokit(octokit), {
     owner: github.context.repo.owner,
     name: github.context.repo.repo,
     refPrefix: inputs.refPrefix,
   })
-  core.info(`Found ${refs.repository?.refs?.totalCount} refs in the repository`)
+  core.info(`Found ${listRefsQuery.repository?.refs?.totalCount} refs in the repository`)
 
   const expiration = new Date(Date.now() - inputs.expirationDays * 24 * 60 * 60 * 1000)
   core.info(`Finding stale refs by expiration at ${expiration.toISOString()}`)
-  const staleRefs = getStaleRefs(refs, inputs.refPrefix, expiration)
+  const staleRefs = getStaleRefs(listRefsQuery, inputs.refPrefix, {
+    expiration,
+    excludeRefs: inputs.excludeRefs,
+  })
   core.setOutput('stale-refs', staleRefs.join('\n'))
   if (staleRefs.length === 0) {
     core.info(`No stale branch`)
