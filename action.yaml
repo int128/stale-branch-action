@@ -9,6 +9,9 @@ inputs:
     description: Prefix of refs
     required: false
     default: refs/heads/
+  exclude-refs:
+    description: Exclude ref by pattern (multiline string)
+    required: false
   dry-run:
     description: Do not delete refs actually
     required: true
