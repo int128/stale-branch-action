@@ -23,7 +23,7 @@
     "@tsconfig/node20": "20.1.4",
     "@types/jest": "29.5.12",
     "@types/minimatch": "5.1.2",
-    "@types/node": "20.12.6",
+    "@types/node": "20.12.7",
     "@typescript-eslint/eslint-plugin": "7.6.0",
     "@typescript-eslint/parser": "7.6.0",
     "@vercel/ncc": "0.38.1",
