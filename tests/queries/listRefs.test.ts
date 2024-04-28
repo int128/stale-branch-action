@@ -1,5 +1,5 @@
-import * as listRefs from '../../src/queries/listRefs'
-import { ListRefsQuery, ListRefsQueryVariables } from '../../src/generated/graphql'
+import * as listRefs from '../../src/queries/listRefs.js'
+import { ListRefsQuery, ListRefsQueryVariables } from '../../src/generated/graphql.js'
 
 describe('paginateListRefs', () => {
   const listRefsVariables: ListRefsQueryVariables = {

@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { Minimatch } from 'minimatch'
-import { ListRefsQuery } from './generated/graphql'
+import { ListRefsQuery } from './generated/graphql.js'
 
 type Filter = {
   expiration: Date

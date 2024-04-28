@@ -1,4 +1,4 @@
-import { getStaleRefs } from '../src/stale'
+import { getStaleRefs } from '../src/stale.js'
 
 describe('getStaleBranches', () => {
   test('empty', () => {

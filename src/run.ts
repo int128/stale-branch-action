@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import * as listRefs from './queries/listRefs'
-import { getStaleRefs } from './stale'
-import { deleteRefs } from './git'
+import * as listRefs from './queries/listRefs.js'
+import { getStaleRefs } from './stale.js'
+import { deleteRefs } from './git.js'
 
 type Inputs = {
   expirationDays: number
