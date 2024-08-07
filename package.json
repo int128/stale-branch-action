@@ -13,7 +13,7 @@
     "@actions/exec": "1.1.1",
     "@actions/github": "6.0.0",
     "graphql": "16.9.0",
-    "minimatch": "9.0.5"
+    "minimatch": "10.0.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.2",
