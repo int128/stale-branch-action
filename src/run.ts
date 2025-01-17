@@ -28,20 +28,22 @@ export const run = async (inputs: Inputs): Promise<void> => {
     expiration,
     excludeRefs: inputs.excludeRefs,
   })
-  core.setOutput('stale-refs', staleRefs.join('\n'))
+  core.setOutput('stale-refs', staleRefs.map((ref) => ref.name).join('\n'))
   if (staleRefs.length === 0) {
     core.info(`No stale branch`)
     return
   }
 
   core.info(`Found ${staleRefs.length} stale refs:`)
-  core.info(staleRefs.join('\n'))
+  for (const ref of staleRefs) {
+    core.info(`- ${ref.name} (committed at ${ref.committedDate.toISOString()})`)
+  }
   if (inputs.dryRun) {
     core.info(`Exiting due to dry-run`)
     return
   }
   const errorRefs = await deleteRefs(inputs.token, staleRefs)
   if (errorRefs.length > 0 && !inputs.ignoreDeletionError) {
-    throw new Error(`Failed to delete refs: ${errorRefs.join(', ')}`)
+    throw new Error(`Failed to delete refs: ${errorRefs.map((ref) => ref.name).join(', ')}`)
   }
 }

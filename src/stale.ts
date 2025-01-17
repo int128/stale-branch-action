@@ -7,14 +7,19 @@ type Filter = {
   excludeRefs: string[]
 }
 
-export const getStaleRefs = (refs: ListRefsQuery, prefix: string, filter: Filter): string[] => {
+type Ref = {
+  name: string
+  committedDate: Date
+}
+
+export const getStaleRefs = (refs: ListRefsQuery, prefix: string, filter: Filter): Ref[] => {
   assert(refs.repository != null)
   assert(refs.repository.refs != null)
   assert(refs.repository.refs.nodes != null)
 
   const excludeRefPatterns = filter.excludeRefs.map((excludeRef) => new Minimatch(excludeRef))
 
-  const staleRefNames = []
+  const staleRefs = []
   for (const node of refs.repository.refs.nodes) {
     assert(node != null)
     assert(node.target != null)
@@ -37,7 +42,10 @@ export const getStaleRefs = (refs: ListRefsQuery, prefix: string, filter: Filter
       continue
     }
 
-    staleRefNames.push(refName)
+    staleRefs.push({
+      name: refName,
+      committedDate,
+    })
   }
-  return staleRefNames
+  return staleRefs
 }

@@ -5,7 +5,11 @@ import * as fs from 'fs/promises'
 import * as os from 'os'
 import * as path from 'path'
 
-export const deleteRefs = async (token: string, refs: string[]): Promise<string[]> => {
+type Ref = {
+  name: string
+}
+
+export const deleteRefs = async (token: string, refs: Ref[]): Promise<Ref[]> => {
   const runnerTempDir = process.env.RUNNER_TEMP || os.tmpdir()
   const cwd = await fs.mkdtemp(path.join(runnerTempDir, 'stale-branch-action-'))
 
@@ -27,9 +31,9 @@ export const deleteRefs = async (token: string, refs: string[]): Promise<string[
   core.info(`Deleting ${refs.length} refs`)
   const errorRefs = []
   for (const ref of refs) {
-    const code = await exec.exec('git', ['push', 'origin', '--delete', ref], { cwd, ignoreReturnCode: true })
+    const code = await exec.exec('git', ['push', 'origin', '--delete', ref.name], { cwd, ignoreReturnCode: true })
     if (code !== 0) {
-      core.warning(`Failed to delete ${ref}`)
+      core.warning(`Failed to delete ${ref.name}`)
       errorRefs.push(ref)
     }
   }
