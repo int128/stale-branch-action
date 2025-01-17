@@ -84,7 +84,12 @@ describe('getStaleBranches', () => {
       'refs/heads/',
       { expiration: new Date('2023-04-10T00:00:00Z'), excludeRefs: [] },
     )
-    expect(staleBranches).toStrictEqual(['refs/heads/branch-1'])
+    expect(staleBranches).toStrictEqual([
+      {
+        name: 'refs/heads/branch-1',
+        committedDate: new Date('2023-04-05T06:07:08Z'),
+      },
+    ])
   })
 
   test('exclude branch', () => {
@@ -112,6 +117,11 @@ describe('getStaleBranches', () => {
       'refs/heads/',
       { expiration: new Date('2023-04-10T00:00:00Z'), excludeRefs: ['refs/heads/branch-*'] },
     )
-    expect(staleBranches).toStrictEqual(['refs/heads/branch-2/production'])
+    expect(staleBranches).toStrictEqual([
+      {
+        name: 'refs/heads/branch-2/production',
+        committedDate: new Date('2023-04-05T06:07:08Z'),
+      },
+    ])
   })
 })
