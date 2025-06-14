@@ -1,7 +1,8 @@
+import { describe, it, expect } from 'vitest'
 import { getStaleRefs } from '../src/stale.js'
 
 describe('getStaleBranches', () => {
-  test('empty', () => {
+  it('empty', () => {
     const staleBranches = getStaleRefs(
       {
         repository: {
@@ -18,7 +19,7 @@ describe('getStaleBranches', () => {
     expect(staleBranches).toStrictEqual([])
   })
 
-  test('recent branch', () => {
+  it('recent branch', () => {
     const staleBranches = getStaleRefs(
       {
         repository: {
@@ -41,7 +42,7 @@ describe('getStaleBranches', () => {
     expect(staleBranches).toStrictEqual([])
   })
 
-  test('outdated branch but pull request is associated', () => {
+  it('outdated branch but pull request is associated', () => {
     const staleBranches = getStaleRefs(
       {
         repository: {
@@ -64,7 +65,7 @@ describe('getStaleBranches', () => {
     expect(staleBranches).toStrictEqual([])
   })
 
-  test('outdated branch', () => {
+  it('outdated branch', () => {
     const staleBranches = getStaleRefs(
       {
         repository: {
@@ -92,7 +93,7 @@ describe('getStaleBranches', () => {
     ])
   })
 
-  test('exclude branch', () => {
+  it('exclude branch', () => {
     const staleBranches = getStaleRefs(
       {
         repository: {

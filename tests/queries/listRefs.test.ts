@@ -1,3 +1,4 @@
+import { describe, it, expect, vi } from 'vitest'
 import * as listRefs from '../../src/queries/listRefs.js'
 import { ListRefsQuery, ListRefsQueryVariables } from '../../src/generated/graphql.js'
 
@@ -8,8 +9,8 @@ describe('paginateListRefs', () => {
     refPrefix: 'refs/heads/',
   }
 
-  test('empty', async () => {
-    const mockListRefs = jest.fn<Promise<ListRefsQuery>, [ListRefsQueryVariables]>()
+  it('empty', async () => {
+  const mockListRefs = vi.fn<Promise<ListRefsQuery>, [ListRefsQueryVariables]>()
     mockListRefs.mockResolvedValueOnce({
       repository: {
         refs: {
@@ -34,8 +35,8 @@ describe('paginateListRefs', () => {
     })
   })
 
-  test('single page', async () => {
-    const mockListRefs = jest.fn<Promise<ListRefsQuery>, [ListRefsQueryVariables]>()
+  it('single page', async () => {
+    const mockListRefs = vi.fn<Promise<ListRefsQuery>, [ListRefsQueryVariables]>()
     mockListRefs.mockResolvedValueOnce({
       repository: {
         refs: {
@@ -72,8 +73,8 @@ describe('paginateListRefs', () => {
     })
   })
 
-  test('multiple pages', async () => {
-    const mockListRefs = jest.fn<Promise<ListRefsQuery>, [ListRefsQueryVariables]>()
+  it('multiple pages', async () => {
+    const mockListRefs = vi.fn<Promise<ListRefsQuery>, [ListRefsQueryVariables]>()
     mockListRefs.mockResolvedValueOnce({
       repository: {
         refs: {
