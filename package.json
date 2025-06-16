@@ -25,7 +25,7 @@
     "@tsconfig/node20": "20.1.6",
     "@types/jest": "30.0.0",
     "@types/minimatch": "5.1.2",
-    "@types/node": "20.19.0",
+    "@types/node": "20.19.1",
     "@vercel/ncc": "0.38.3",
     "eslint": "9.29.0",
     "eslint-plugin-jest": "28.14.0",
