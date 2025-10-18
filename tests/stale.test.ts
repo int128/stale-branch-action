@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import { getStaleRefs } from '../src/stale.js'
 
 describe('getStaleBranches', () => {
