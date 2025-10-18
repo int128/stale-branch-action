@@ -1,9 +1,9 @@
+import * as fs from 'node:fs/promises'
+import * as os from 'node:os'
+import * as path from 'node:path'
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import * as github from '@actions/github'
-import * as fs from 'fs/promises'
-import * as os from 'os'
-import * as path from 'path'
 
 type Ref = {
   name: string
