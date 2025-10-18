@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "ncc build --source-map --license licenses.txt src/main.ts",
-    "test": "jest",
+    "test": "vitest",
     "graphql-codegen": "graphql-codegen --config graphql-codegen.ts"
   },
   "type": "module",
@@ -21,14 +21,12 @@
     "@graphql-codegen/typescript-operations": "4.6.1",
     "@octokit/graphql-schema": "15.26.0",
     "@tsconfig/node20": "20.1.6",
-    "@types/jest": "30.0.0",
     "@types/minimatch": "6.0.0",
     "@types/node": "20.19.20",
     "@vercel/ncc": "0.38.4",
-    "jest": "30.2.0",
     "pnpm": "10.17.1",
-    "ts-jest": "29.4.5",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": "20.x"
