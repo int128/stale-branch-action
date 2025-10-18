@@ -15,7 +15,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.6",
-    "@eslint/js": "9.37.0",
     "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/import-types-preset": "3.0.1",
     "@graphql-codegen/typescript": "4.1.6",
@@ -26,14 +25,10 @@
     "@types/minimatch": "6.0.0",
     "@types/node": "20.19.20",
     "@vercel/ncc": "0.38.4",
-    "eslint": "9.36.0",
-    "eslint-plugin-jest": "29.0.1",
     "jest": "30.2.0",
     "pnpm": "10.17.1",
-    "prettier": "3.6.2",
     "ts-jest": "29.4.5",
-    "typescript": "5.9.3",
-    "typescript-eslint": "8.44.1"
+    "typescript": "5.9.3"
   },
   "engines": {
     "node": "20.x"
