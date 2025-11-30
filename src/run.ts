@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
-import * as github from '@actions/github'
+import type { Octokit } from '@octokit/action'
 import { deleteRefs } from './git.js'
+import type { Context } from './github.js'
 import * as listRefs from './queries/listRefs.js'
 import { getStaleRefs } from './stale.js'
 
@@ -13,11 +14,10 @@ type Inputs = {
   token: string
 }
 
-export const run = async (inputs: Inputs): Promise<void> => {
-  const octokit = github.getOctokit(inputs.token)
+export const run = async (inputs: Inputs, octokit: Octokit, context: Context): Promise<void> => {
   const listRefsQuery = await listRefs.paginate(listRefs.withOctokit(octokit), {
-    owner: github.context.repo.owner,
-    name: github.context.repo.repo,
+    owner: context.repo.owner,
+    name: context.repo.repo,
     refPrefix: inputs.refPrefix,
   })
   core.info(`Found ${listRefsQuery.repository?.refs?.totalCount} refs in the repository`)
@@ -42,7 +42,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
     core.info(`Exiting due to dry-run`)
     return
   }
-  const errorRefs = await deleteRefs(inputs.token, staleRefs)
+  const errorRefs = await deleteRefs(staleRefs, context, inputs.token)
   if (errorRefs.length > 0 && !inputs.ignoreDeletionError) {
     throw new Error(`Failed to delete refs: ${errorRefs.map((ref) => ref.name).join(', ')}`)
   }
