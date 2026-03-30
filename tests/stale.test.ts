@@ -1,8 +1,8 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it, test } from 'vitest'
 import { getStaleRefs } from '../src/stale.js'
 
-describe('getStaleBranches', () => {
-  test('empty', () => {
+describe('getStaleRefs', () => {
+  it('returns an empty array when there are no branches', () => {
     const staleBranches = getStaleRefs(
       {
         repository: {
@@ -19,7 +19,7 @@ describe('getStaleBranches', () => {
     expect(staleBranches).toStrictEqual([])
   })
 
-  test('recent branch', () => {
+  it('excludes a recently committed branch', () => {
     const staleBranches = getStaleRefs(
       {
         repository: {
@@ -42,7 +42,7 @@ describe('getStaleBranches', () => {
     expect(staleBranches).toStrictEqual([])
   })
 
-  test('outdated branch but pull request is associated', () => {
+  it('excludes a branch associated to any open pull request', () => {
     const staleBranches = getStaleRefs(
       {
         repository: {
@@ -65,7 +65,7 @@ describe('getStaleBranches', () => {
     expect(staleBranches).toStrictEqual([])
   })
 
-  test('outdated branch', () => {
+  it('returns an outdated branch', () => {
     const staleBranches = getStaleRefs(
       {
         repository: {
@@ -93,7 +93,7 @@ describe('getStaleBranches', () => {
     ])
   })
 
-  test('exclude branch', () => {
+  it('excludes branches by pattern', () => {
     const staleBranches = getStaleRefs(
       {
         repository: {

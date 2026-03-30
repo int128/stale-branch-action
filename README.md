@@ -4,10 +4,10 @@ This action deletes stale branches.
 
 ## Getting Started
 
-It deletes a branch if the following conditions are satisfied:
+This action deletes branches that satisfy all of the following conditions:
 
-- The committed date is older than the expiration
-- The branch does not have open pull request(s)
+- A branch has been updated before the expiration date.
+- A branch is not associated to any open pull request.
 
 To delete branches older than 30 days,
 
@@ -61,8 +61,7 @@ jobs:
 
 ### Ignore deletion errors
 
-This action deletes the stale branches using `git push origin --delete` command.
-If a branch protection rule is set, this action cannot delete the branch.
+If a repository rule is set, `git push origin --delete` command may fail.
 
 To ignore any error on deletion,
 
