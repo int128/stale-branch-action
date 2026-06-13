@@ -1,5 +1,5 @@
 import assert from 'node:assert'
-import { Minimatch } from 'minimatch'
+import { matchesGlob } from 'node:path'
 import type { ListRefsQuery } from './generated/graphql.js'
 
 type Filter = {
@@ -17,8 +17,6 @@ export const getStaleRefs = (refs: ListRefsQuery, prefix: string, filter: Filter
   assert(refs.repository.refs != null)
   assert(refs.repository.refs.nodes != null)
 
-  const excludeRefPatterns = filter.excludeRefs.map((excludeRef) => new Minimatch(excludeRef))
-
   const staleRefs = []
   for (const node of refs.repository.refs.nodes) {
     assert(node != null)
@@ -27,7 +25,7 @@ export const getStaleRefs = (refs: ListRefsQuery, prefix: string, filter: Filter
     const refName = `${prefix}${node.name}`
 
     // Exclude given patterns
-    if (excludeRefPatterns.some((pattern) => pattern.match(refName))) {
+    if (filter.excludeRefs.some((pattern) => matchesGlob(refName, pattern))) {
       continue
     }
 
